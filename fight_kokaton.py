@@ -145,6 +145,19 @@ class Beam:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+class Score:
+    def __init__(self, screen):  # screenを引数に追加
+        self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        self.txt = 0  # txtを追加
+        self.screen = screen  # screenを追加
+        self.img = self.font.render("スコア:" + str(self.txt), 0, (0, 0, 255))
+        self.img_rect = self.img.get_rect()
+        self.img_rect.centerx = 100
+        self.img_rect.centery = 850
+
+    def update(self):
+        self.img = self.font.render("スコア:" + str(self.txt), 0, (0, 0, 255))
+        self.screen.blit(self.img, self.img_rect)
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -154,6 +167,7 @@ def main():
     # BombインスタンスがNUM個並んだリスト
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]  
     beams = []
+    score = Score(screen)
 
     clock = pg.time.Clock()
     tmr = 0
@@ -180,6 +194,7 @@ def main():
                     if beam.rct.colliderect(bomb.rct):
                         beams[j] = None
                         bombs[i] = None
+                        score.txt += 1
                         bird.change_img(6, screen)
 
         # beamが画面の中にいるかどうかの判定
@@ -198,6 +213,7 @@ def main():
             bomb.update(screen )
         for beam in beams:
             beam.update(screen)
+        score.update()
         pg.display.update()
         tmr += 1
         clock.tick(50)
