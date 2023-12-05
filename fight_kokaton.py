@@ -134,6 +134,9 @@ class Bomb:
 
 
 class Beam:
+    """
+    ビームに関する関数
+    """
     def __init__(self, bird: Bird):
         self.img = pg.image.load(f"{MAIN_DIR}/fig/beam.png")
         self.rct = self.img.get_rect()
@@ -156,12 +159,16 @@ class Beam:
         screen.blit(self.img, self.rct)
 
 class Score:
+    """
+    スコアに関する関数
+    """
     def __init__(self, screen):  # screenを引数に追加
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.txt = 0  # txtを追加
         self.screen = screen  # screenを追加
         self.img = self.font.render("スコア:" + str(self.txt), 0, (0, 0, 255))
         self.img_rect = self.img.get_rect()
+        # 座標を設定
         self.img_rect.centerx = 100
         self.img_rect.centery = 850
 
@@ -170,6 +177,9 @@ class Score:
         self.screen.blit(self.img, self.img_rect)
 
 class Explosion:
+    """
+    爆発に関する関数
+    """
     def __init__(self, center, life=30):
         self.imgs = [
             pg.image.load("ex03/fig/explosion.gif"),
@@ -180,8 +190,8 @@ class Explosion:
         self.img_idx = 0
         self.img = self.imgs[self.img_idx]
         self.rct = self.img.get_rect()
-        self.rct.center = center
-        self.life = life
+        self.rct.center = center  #生成場所を決定
+        self.life = life  #life表示時間を設定
 
     def update(self):
         self.life -= 1
