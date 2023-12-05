@@ -160,7 +160,8 @@ class Score:
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.txt = 0  # txtを追加
         self.screen = screen  # screenを追加
-        self.img = self.font.render("スコア:" + str(self.txt), 0, (0, 0, 255))
+        self.color = (0, 0, 255)
+        self.img = self.font.render("スコア:" + str(self.txt), 0, self.color)
         self.img_rect = self.img.get_rect()
         self.img_rect.centerx = 100
         self.img_rect.centery = 850
